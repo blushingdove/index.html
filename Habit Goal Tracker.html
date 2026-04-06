@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)file:///Users/ellahaynes/Downloads/notion_habit_tracker_pink.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Goal Tracker</title>
+  <style>
+    :root {
+      --bg: #1a0b14;
+      --panel: #2a1020;
+      --card: #3a142c;
+      --text: #fff1f7;
+      --muted: #f9a8d4;
+      --accent: #f472b6;
+      --accent-2: #fb7185;
+      --warning: #f9a8d4;
+      --danger: #fb7185;
+      --border: rgba(255,182,193,0.18);
+      --shadow: 0 10px 30px rgba(244,114,182,0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(244,114,182,0.25), transparent 30%),
+        radial-gradient(circle at top right, rgba(251,113,133,0.2), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(58,20,44,0.95), rgba(42,16,32,0.95));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .habit-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      width: 0%;
+    }
+
+    .reward {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(251,113,133,0.12);
+      border: 1px solid rgba(251,113,133,0.25);
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .checkin-btn {
+      background: var(--accent);
+      color: #3a142c;
+    }
+
+    .reset-btn {
+      background: rgba(251,113,133,0.2);
+      color: #ffe4ec;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="title">💗 Habit Tracker</h1>
+    <div class="grid" id="habitGrid"><div class="card">
+        <div class="habit-name">Celibate</div>
+        <div>3 / 90 days</div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:3.3333333333333335%"></div>
+        </div>
+        <div class="reward">Reward: Your reward</div>
+        <button class="checkin-btn">+1 Day</button>
+        <button class="reset-btn">Reset</button>
+      </div><div class="card">
+        <div class="habit-name">No Drinking</div>
+        <div>3 / 30 days</div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:10%"></div>
+        </div>
+        <div class="reward">Reward: Fancy dinner</div>
+        <button class="checkin-btn">+1 Day</button>
+        <button class="reset-btn">Reset</button>
+      </div><div class="card">
+        <div class="habit-name">No Weed</div>
+        <div>1 / 60 days</div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:1.6666666666666667%"></div>
+        </div>
+        <div class="reward">Reward: Tennis necklace</div>
+        <button class="checkin-btn">+1 Day</button>
+        <button class="reset-btn">Reset</button>
+      </div></div>
+  </div>
+
+  <script>
+    const habits = [
+      { name: "Celibate", current: 3, goal: 90, reward: "Your reward" },
+      { name: "No Drinking", current: 3, goal: 30, reward: "Fancy dinner" },
+      { name: "No Weed", current: 1, goal: 60, reward: "Tennis necklace" }
+    ];
+
+    const grid = document.getElementById("habitGrid");
+
+    habits.forEach(habit => {
+      const percent = (habit.current / habit.goal) * 100;
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <div class="habit-name">${habit.name}</div>
+        <div>${habit.current} / ${habit.goal} days</div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${percent}%"></div>
+        </div>
+        <div class="reward">Reward: ${habit.reward}</div>
+        <button class="checkin-btn">+1 Day</button>
+        <button class="reset-btn">Reset</button>
+      `;
+
+      const [checkBtn, resetBtn] = card.querySelectorAll("button");
+
+      checkBtn.onclick = () => {
+        habit.current++;
+        location.reload();
+      };
+
+      resetBtn.onclick = () => {
+        habit.current = 0;
+        location.reload();
+      };
+
+      grid.appendChild(card);
+    });
+  </script>
+
+
+</body></html>
